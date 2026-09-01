@@ -15,10 +15,6 @@ function Resume() {
           Download PDF <span aria-hidden="true">↓</span>
         </a>
       </div>
-      <p className="resume-page__note">
-        PDF not uploaded yet — drop a <code>resume.pdf</code> into <code>/public</code> and this
-        link will work as-is.
-      </p>
 
       <div className="resume-page__block">
         <p className="mono resume-page__heading">Experience</p>
