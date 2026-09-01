@@ -3,6 +3,11 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import PROJECTS from "../data/projects.json";
 import "./ProjectDetail.css";
 
+function resolveAssetUrl(src) {
+  if (!src || /^https?:\/\//.test(src)) return src;
+  return `${import.meta.env.BASE_URL}${src.replace(/^\//, "")}`;
+}
+
 function getYouTubeEmbedUrl(url) {
   if (!url) return null;
   const match = url.match(
@@ -157,7 +162,11 @@ function ProjectDetail() {
                     onClick={() => setLightboxIndex(index)}
                     aria-label={`View ${project.name} screenshot ${index + 1} full size`}
                   >
-                    <img src={src} alt={`${project.name} screenshot ${index + 1}`} loading="lazy" />
+                    <img
+                      src={resolveAssetUrl(src)}
+                      alt={`${project.name} screenshot ${index + 1}`}
+                      loading="lazy"
+                    />
                   </button>
                 ))}
               </div>
@@ -211,7 +220,7 @@ function ProjectDetail() {
 
           <img
             className="project-detail__lightbox-img"
-            src={screenshots[lightboxIndex]}
+            src={resolveAssetUrl(screenshots[lightboxIndex])}
             alt={`${project.name} screenshot ${lightboxIndex + 1}`}
             onClick={(e) => e.stopPropagation()}
           />

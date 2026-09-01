@@ -7,7 +7,11 @@ function Resume() {
     <div className="page resume-page">
       <div className="resume-page__header">
         <p className="eyebrow">Resume</p>
-        <a className="mono resume-page__download" href="/resume.pdf" download>
+        <a
+          className="mono resume-page__download"
+          href={`${import.meta.env.BASE_URL}resume.pdf`}
+          download
+        >
           Download PDF <span aria-hidden="true">↓</span>
         </a>
       </div>
