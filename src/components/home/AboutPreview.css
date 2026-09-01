@@ -1,0 +1,32 @@
+.about-preview__lede {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(22px, 2.4vw, 28px);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  max-width: 28ch;
+  margin-bottom: 20px;
+}
+
+.about-preview__body {
+  color: var(--fg-muted);
+  font-size: 15px;
+  line-height: 1.75;
+  max-width: 58ch;
+}
+
+.about-preview__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.about-preview__more:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

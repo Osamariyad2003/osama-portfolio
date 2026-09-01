@@ -1,0 +1,359 @@
+[
+  {
+    "slug": "codebuster",
+    "name": "CodeBuster",
+    "tagline": "AI-driven PR-review platform that surfaces issues before humans do.",
+    "featured": true,
+    "stack": [
+      "Flask",
+      "Celery",
+      "Redis",
+      "React"
+    ],
+    "github": "https://github.com/Osamariyad2003/codebuster",
+    "demo": null,
+    "video": "https://youtu.be/C1yJe_QViqE",
+    "overview": "CodeBuster runs an automated first pass over pull requests — correctness, style, and security — so human reviewers can focus on design and intent instead of catching typos and obvious bugs.",
+    "problem": "Reviewer time is scarce, and a lot of it goes to catching issues a tool could catch faster: unhandled errors, obvious security smells, inconsistent style. That crowds out the higher-value parts of review.",
+    "architecture": "A Flask API receives GitHub webhook events and enqueues review jobs onto Celery workers backed by Redis. Each job runs static analysis plus an LLM review pass, and results are posted back as PR comments and rendered in a React dashboard.",
+    "features": [
+      "Automated review comments posted directly on GitHub PRs",
+      "Async job queue (Celery + Redis) so review doesn't block the webhook",
+      "React dashboard for reviewing findings across repos",
+      "Configurable rule severity per project"
+    ],
+    "screenshots": [],
+    "challenges": "Keeping review latency low under bursty webhook traffic required tuning Celery concurrency and adding backpressure so a large PR didn't starve smaller ones in the queue.",
+    "learned": "How to design an async pipeline where a slow LLM call doesn't block the fast path, and how to make queue depth and worker health visible instead of invisible."
+  },
+  {
+    "slug": "shughaily",
+    "name": "Shughaily",
+    "tagline": "Arabic-first, bilingual AI job copilot — parsing, embeddings, and LLM orchestration in production.",
+    "featured": true,
+    "stack": [
+      "React 19",
+      "Express",
+      "Flask",
+      "PostgreSQL/pgvector",
+      "Redis",
+      "TypeScript"
+    ],
+    "github": "https://github.com/Osamariyad2003/shughaily",
+    "demo": null,
+    "overview": "Al-Shughaily (\"Shughaily\") is a full-stack SaaS platform for Arabic-speaking job seekers, built to explore what an end-to-end AI product looks like when parsing, embeddings, LLM orchestration, background job scheduling, and a genuinely bilingual UI all have to work together in production — not just in a notebook. It's my signature project.",
+    "problem": "Most job-search tooling is built English-first with RTL bolted on as an afterthought — layout, iconography, and even LLM prompting tend to break down for Arabic-speaking users. Candidates also lack tools that go beyond keyword search: real semantic matching, ATS-aware feedback, and tailored application materials in their own language.",
+    "architecture": "A three-tier microservice system: a React 19 + Vite frontend (fully bilingual, RTL/LTR switchable without reload) talks over REST to an Express 5/TypeScript API that handles auth, billing, and dispatches async work via Redis/BullMQ. A separate Flask AI service runs 10 specialized pipelines — resume parsing, embeddings, LLM orchestration, ATS scoring — backed by PostgreSQL with pgvector for semantic job matching. Services authenticate to each other over an internal token with network isolation, and everything ships via Docker Compose.",
+    "features": [
+      "CV parsing (PDF/DOCX) into structured JSON via an LLM + regex pipeline",
+      "Semantic job matching using pgvector embeddings combined with skill-overlap scoring",
+      "ATS analysis with rule-based scoring plus LLM-generated improvement suggestions",
+      "Auto-tailored cover letter generation in Arabic or English",
+      "Role-specific interview prep with model answers",
+      "Full bilingual UI — Arabic RTL and English LTR, switchable live",
+      "Kanban-style application tracking and a conversational copilot assistant",
+      "Per-user API keys with usage quotas and billing"
+    ],
+    "screenshots": [
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/01-login.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/03-dashboard.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/04-jobs-search-agents.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/05-job-detail.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/06-resume-manager.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/07-applications-tracker.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/09-copilot-chat.png"
+    ],
+    "challenges": "Keeping RTL and LTR layouts, auth, and configuration consistent across three separate services (React, Express, Flask) while switching languages live was far more involved than any single AI pipeline. Coordinating multiple async AI agents through BullMQ, with graceful fallback between LLM providers (OpenRouter primary, Groq fallback), also took several iterations to make reliable under load.",
+    "learned": "RTL support done properly is a layout architecture decision made from day one, not a CSS override added at the end — and orchestrating several LLM-backed pipelines in production surfaces failure modes (partial parses, provider timeouts, inconsistent structured output) that never show up in a single-notebook demo."
+  },
+  {
+    "slug": "souq",
+    "name": "Souq Connect",
+    "tagline": "Odoo addon that models cash-on-delivery accounting for MENA retail, properly — as real ledger entries.",
+    "featured": true,
+    "stack": [
+      "Odoo 18",
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "QWeb"
+    ],
+    "github": "https://github.com/Osamariyad2003/Souq",
+    "demo": null,
+    "overview": "Souq Connect is an Odoo 18 addon built for MENA retail/distribution businesses where cash-on-delivery is the norm. Its core idea: cash doesn't arrive when the invoice is validated — it arrives days later, carried by a driver. Every cash movement generates balanced double-entry journal entries instead of a cosmetic status flag.",
+    "problem": "COD-heavy retail markets need accounting that tracks cash from driver custody through settlement, multi-branch stock movement, and compliance (ZATCA-style e-invoicing) — most off-the-shelf ERP setups treat COD as an afterthought and let the books drift out of sync with reality.",
+    "architecture": "A single cohesive Odoo addon (collapsed down from an original 5-module design) models the full order-to-ledger workflow: pending COD orders move through driver collection to a settled state only via confirmed settlements, with database constraints and record rules preventing illegal state transitions or double-settlement. Branch-scoped clearing accounts hold cash in transit, role-based access (Driver/Cashier/Accountant/Manager) constrains who can touch what, and bilingual Arabic/English RTL reports render through Odoo's QWeb engine.",
+    "features": [
+      "Branch-scoped COD accounting with clearing accounts for delayed cash receipt",
+      "Driver cash custody tracking and settlement workflows, with double-settlement guards",
+      "Configurable COD surcharge (fixed or percentage)",
+      "Multi-branch stock visibility and inter-branch transfers with in-transit states",
+      "Role-based access control: Driver, Cashier, Accountant, Manager groups",
+      "ZATCA-style e-invoicing with TLV/QR encoding",
+      "Bilingual Arabic/English RTL report generation"
+    ],
+    "screenshots": [
+      "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/01_branch_config.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/03_quotations_list.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/04_order_detail.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/06_invoice.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/08_cod_collections_list.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/10_settlements_list.png"
+    ],
+    "challenges": "Enforcing real double-entry accounting integrity when cash flow lags invoice validation by days, without letting a driver settle the same collection twice — that meant settlement confirmation gates, per-driver record rules, and constraints that make illegal state transitions structurally impossible rather than just discouraged in the UI.",
+    "learned": "Modeling money movement as real ledger entries — not status flags — is what makes an accounting feature trustworthy; and Odoo's ORM plus QWeb made it possible to ship ZATCA-compliant bilingual invoicing without hand-rolling a templating layer."
+  },
+  {
+    "slug": "medjust",
+    "name": "MedJust",
+    "tagline": "Flutter study companion for medical students — timers, lecture notes, and campus tools in one app.",
+    "featured": false,
+    "stack": [
+      "Flutter",
+      "Dart",
+      "flutter_bloc",
+      "Firebase"
+    ],
+    "github": null,
+    "demo": "https://www.mediafire.com/file/yeyagop7cpn3juf/med-just/file",
+    "overview": "MedJust is a cross-platform Flutter app for medical students, bundling study tools and campus utilities — a Pomodoro timer, timestamped video notes, lecture browsing, a document viewer, news, a chat-based guide assistant, and even a university map — into one app.",
+    "problem": "Medical students juggle a scattered set of tools for study timing, lecture review, and campus logistics. MedJust consolidates the ones used daily into a single, purpose-built app instead of five unrelated ones.",
+    "architecture": "Built with clean architecture: feature modules each separate presentation and data layers, state is managed with the BLoC pattern (`flutter_bloc`), and dependency injection is centralized at `lib/core/di/di.dart`. Firebase backs data sync, with a custom local-storage layer and a custom app router.",
+    "features": [
+      "Pomodoro timer tied to task management for focused study sessions",
+      "Timestamped notes synced to video lectures",
+      "Organized lecture browsing and a built-in PDF/web document viewer",
+      "Medical news feed with article detail views",
+      "Guide-based chat assistant",
+      "Store/cart system and university campus map",
+      "Onboarding flow and personalized user profiles"
+    ],
+    "screenshots": [
+      "/screenshots/medjust/pomodoro-timer.jpg",
+      "/screenshots/medjust/profile-account.jpg",
+      "/screenshots/medjust/sidebar-menu.jpg",
+      "/screenshots/medjust/resources-page.jpg",
+      "/screenshots/medjust/chemistry-quiz.jpg",
+      "/screenshots/medjust/university-map.jpg",
+      "/screenshots/medjust/medical-store.jpg",
+      "/screenshots/medjust/quiz-results.jpg"
+    ],
+    "challenges": "Keeping ten-plus distinct feature modules (timer, notes, store, map, news, chat...) consistent under one BLoC-based state model without them leaking into each other took a disciplined DI and module boundary from the start.",
+    "learned": "Clean architecture pays off fastest in apps with many loosely-related features — the up-front cost of strict layering and DI is what kept MedJust's ten-plus modules from turning into a tangled mess."
+  },
+  {
+    "slug": "travler",
+    "name": "Travler",
+    "tagline": "Budget travel planner with an interactive map — free tiers only, zero tracking.",
+    "featured": true,
+    "stack": [
+      "Next.js 14",
+      "React",
+      "Firebase",
+      "Leaflet",
+      "OSRM",
+      "Tailwind CSS"
+    ],
+    "github": "https://github.com/Osamariyad2003/travler",
+    "demo": "https://travler-gamma.vercel.app",
+    "overview": "Travler is an open-source travel planning app for budget-conscious travelers — it surfaces free/cheap activities, affordable food, public transit, walking routes, and crowd-sourced safety info on an interactive map, without relying on paid map APIs.",
+    "problem": "Most trip-planning tools assume a travel budget and lean on paid mapping/places APIs that get expensive fast, while also hoovering up user location data. Budget travelers need the opposite: free data sources, offline-friendly routing, and privacy by default.",
+    "architecture": "A Next.js 14 App Router frontend renders an interactive 2D map with Leaflet over OpenStreetMap data (no paid map API), with OSRM handling walking-route optimization for distance/time/difficulty. Firebase provides auth and Firestore for community-submitted spots, with an admin verification dashboard to keep submissions trustworthy. Deployed on Vercel.",
+    "features": [
+      "Interactive map with real-time city data pulled from OpenStreetMap",
+      "Budget filters — free activities, water refills, markets, hostels",
+      "Optimized walking routes with distance, time, and difficulty",
+      "Crowd-sourced safety warnings and scam alerts, with admin verification",
+      "Trip templates for common budget itineraries",
+      "Zero third-party tracking; location data stays local"
+    ],
+    "screenshots": [
+      "https://raw.githubusercontent.com/Osamariyad2003/travler/main/screenshots/01-landing-page.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/travler/main/screenshots/02-city-map-view.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/travler/main/screenshots/03-place-details-popup.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/travler/main/screenshots/04-walking-routes-panel.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/travler/main/screenshots/05-budget-trip-templates.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/travler/main/screenshots/08-travel-orbit-desktop.png"
+    ],
+    "challenges": "Building useful routing and city-data features entirely on free, community-maintained data sources (OSM/OSRM) instead of a paid maps API meant handling gaps and inconsistencies in that data gracefully, rather than trusting a clean commercial API response.",
+    "learned": "You can ship a genuinely useful, map-heavy product on free infrastructure if you design around the data's rough edges from the start — and that privacy-by-default is a real feature, not just a compliance checkbox."
+  },
+  {
+    "slug": "spatial-3d-file-explorer",
+    "name": "Spatial 3D File Explorer",
+    "tagline": "VS Code extension that renders your workspace as an interactive 3D force-directed graph.",
+    "featured": true,
+    "stack": [
+      "TypeScript",
+      "React",
+      "Three.js",
+      "React Three Fiber",
+      "esbuild"
+    ],
+    "github": "https://github.com/Osamariyad2003/Spatial-3D-File-Explorer",
+    "demo": null,
+    "overview": "Spatial 3D File Explorer replaces VS Code's tree view with an orbit-able 3D force-directed graph of your workspace, so file structure becomes something you navigate spatially instead of scroll through linearly. Tree views are great for small projects and terrible for big ones — this makes repo structure visually apparent at a glance.",
+    "problem": "Large codebases turn the standard file tree into an exercise in scroll-and-search fatigue. There's no spatial memory to lean on, and structural relationships between folders get lost in a flat, indented list.",
+    "architecture": "A clean IPC boundary separates concerns: the VS Code extension host (Node.js, in `src/`) scans the filesystem, tracks state, and watches for changes, while a sandboxed webview (`webview/`, React + Three.js/R3F) owns rendering and interaction, communicating over `postMessage`. A FileSystemWatcher with ~150ms debounce keeps the graph in sync with real-time file changes.",
+    "features": [
+      "Interactive 3D force-directed graph of the workspace — orbit, pan, zoom",
+      "Color-coded nodes by type: code, assets, folders, executables, symlinks, broken links",
+      "Real-time sync with the filesystem via a debounced watcher",
+      "Full-tree search with auto-expansion and dim/highlight of results",
+      "Multi-root workspace support with virtual hub aggregation",
+      "Theme-aware styling using VS Code's own CSS variables"
+    ],
+    "screenshots": [
+      "https://raw.githubusercontent.com/Osamariyad2003/Spatial-3D-File-Explorer/main/screenshots/png_1.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Spatial-3D-File-Explorer/main/screenshots/png_2.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Spatial-3D-File-Explorer/main/screenshots/png_3.png"
+    ],
+    "challenges": "Keeping the 3D scene responsive while a workspace mutates underneath it — file creates/deletes/renames arriving mid-render — required a strict host/webview IPC boundary and a debounce strategy that avoided both stale nodes and render thrashing.",
+    "learned": "Spatial encodings (position, clustering, color) can make structure legible in a way a linear tree fundamentally can't — and keeping rendering logic fully isolated from filesystem/VS Code API logic made the extension far easier to reason about and extend."
+  },
+  {
+    "slug": "student-learning-workspace",
+    "name": "SLW — Student Learning Workspace",
+    "tagline": "Obsidian-style linked notes, spaced-repetition flashcards, and study tracking for coursework.",
+    "featured": false,
+    "stack": [
+      "Next.js 14",
+      "React 18",
+      "Node.js/Express",
+      "PostgreSQL",
+      "Prisma",
+      "Tailwind CSS"
+    ],
+    "github": "https://github.com/Osamariyad2003/SLW",
+    "demo": null,
+    "overview": "SLW is an all-in-one academic productivity platform that applies Obsidian's linked-note model to real coursework — semesters, courses, notes, flashcards, assignments, exams, and a calendar, all in one interconnected workspace.",
+    "problem": "Students end up stitching together a notes app, a flashcard app, and a calendar separately, with no link between a lecture note and the exam it's preparing you for. Nothing ties coursework structure to the notes and study sessions built on top of it.",
+    "architecture": "A monorepo with a Next.js/React frontend and a Node.js/Express + Prisma/PostgreSQL backend. Notes support `[[wiki-links]]` with automatic backlink generation, rendered as an interactive graph via React Flow. Flashcards run on a self-contained, FSRS-inspired spaced-repetition scheduler with no external dependencies. Auth is session-based with HTTP-only cookies and Argon2 password hashing.",
+    "features": [
+      "Hierarchical organization: semesters → courses → modules",
+      "Linked notes with `[[internal links]]` and automatic backlinks",
+      "Interactive knowledge graph of note connections, with search/filtering",
+      "Spaced-repetition flashcards (FSRS-inspired, self-contained)",
+      "Study session tracking with weekly/daily statistics",
+      "Assignment and exam tracking with due dates and prep checklists",
+      "Integrated calendar and a Ctrl/Cmd+K command palette"
+    ],
+    "screenshots": [
+      "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/01-login.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/02-dashboard.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/04-notes-editor.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/05-knowledge-graph.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/08-flashcards-review.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/10-command-palette.png"
+    ],
+    "challenges": "Implementing a spaced-repetition scheduler without leaning on an existing library meant getting the FSRS-style scheduling math right myself, and the backlink/graph system needed careful indexing to stay fast as note counts grew.",
+    "learned": "Modeling a real academic workflow (semester → course → module → note) up front made every later feature — flashcards, graph, calendar — snap into a structure that already made sense, instead of being bolted on."
+  },
+  {
+    "slug": "prime-cinema",
+    "name": "Prime Cinema",
+    "tagline": "Full-stack cinema booking platform — customer booking flow plus an admin management panel.",
+    "featured": false,
+    "stack": [
+      "React 18",
+      "Vite",
+      "Node.js/Express",
+      "SQLite/MySQL"
+    ],
+    "github": "https://github.com/Osamariyad2003/prime_cinema",
+    "demo": null,
+    "overview": "Prime Cinema is a full-stack cinema booking platform: a minimalist black/white/red React frontend for browsing movies and booking seats, backed by a Node.js/Express API (prime_cinema_backend) that also powers an admin panel for managing cinemas, screens, and showtimes.",
+    "problem": "Cinema booking needs to handle a fairly deep data hierarchy — cinemas contain screens, screens have seats and showtimes — while staying fast and simple for the customer picking a seat, and still giving admins real control over the catalog and schedule.",
+    "architecture": "The React 18 + Vite frontend (Montserrat type, #050505/#E50914/#FFFFFF palette) talks to a separate Express API on a different port, which organizes data hierarchically — cinemas → screens → seats/showtimes — through models, services, and routes, with SQLite for local dev and MySQL support via environment config. The backend also serves a server-rendered admin panel for managing the whole catalog, and the DB schema auto-syncs safely (`alter: true`) as it evolves.",
+    "features": [
+      "Movie browsing with detailed info and showtime listings",
+      "Interactive seat selection with a visual seat map",
+      "Quick booking flow with instant confirmation",
+      "Cinema location finder and a premium loyalty card system",
+      "Admin panel: manage cinemas, screens (IMAX/VIP/Standard), movies, and showtimes",
+      "Fully responsive customer UI, dark Netflix-style theme"
+    ],
+    "screenshots": [
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/home.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/movies.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/showtimes.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/seat-selection.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/dashboard.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/loyalty.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/booking-confirmed.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/payment.jpg"
+    ],
+    "challenges": "Modeling the cinema → screen → seat → showtime hierarchy so that seat maps stayed accurate across many concurrent showtimes, while keeping the schema flexible enough to auto-migrate (`alter: true`) as new screen types and features were added.",
+    "learned": "Splitting the booking frontend and the admin/API backend into separate deployable pieces early made it much easier to iterate on the customer UI without ever risking the data model the admin panel depends on."
+  },
+  {
+    "slug": "ulmo-ecommerce",
+    "name": "Ulmo E-Commerce",
+    "tagline": "Cross-platform Flutter storefront with a Firebase backend and web admin panel.",
+    "featured": false,
+    "stack": [
+      "Flutter",
+      "Dart",
+      "Firebase",
+      "Firestore"
+    ],
+    "github": "https://github.com/Osamariyad2003/ulmo_ecmmerce",
+    "demo": null,
+    "overview": "Ulmo is a complete Flutter e-commerce app built from a Figma design, running on Android, iOS, web, Windows, macOS, and Linux from a single codebase, with a Firebase backend and a web-based admin panel for product management.",
+    "problem": "Standing up a real storefront usually means separate mobile and web codebases plus a bespoke admin tool. Ulmo proves out one Flutter codebase serving customers on six platforms while a lightweight admin panel manages the catalog.",
+    "architecture": "A modular Flutter app with platform-specific directories (android/ios/web/windows/macos/linux) around a shared `lib/` core. Firebase Authentication handles login/registration/password reset, Firestore stores product and order data, and Firebase Storage serves product images — a fully cloud-backed data layer shared between the customer app and the admin panel.",
+    "features": [
+      "Product grid and detail views with images, descriptions, and pricing",
+      "Shopping cart with quantity management",
+      "Firebase auth: login, registration, password reset",
+      "Order tracking and purchase history",
+      "Category filtering with horizontal scroll",
+      "Web-based admin panel for product management"
+    ],
+    "screenshots": [
+      "https://raw.githubusercontent.com/Osamariyad2003/ulmo_ecmmerce/main/screenshots/main_page.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/ulmo_ecmmerce/main/screenshots/catalog.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/ulmo_ecmmerce/main/screenshots/product_grid.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/ulmo_ecmmerce/main/screenshots/product_details.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/ulmo_ecmmerce/main/screenshots/admin_panel.png"
+    ],
+    "challenges": "Getting one Flutter codebase to behave correctly across six target platforms (especially reconciling mobile-first UI patterns with a usable web/desktop experience) took more platform-conditional handling than a mobile-only app would have needed.",
+    "learned": "Firestore's document model maps naturally onto a product catalog, but designing the schema to serve both the customer app and a separate admin panel cleanly meant thinking about access patterns from both sides up front."
+  },
+  {
+    "slug": "meal-recommendation-ai",
+    "name": "Meal Recommendation AI",
+    "tagline": "Flutter app that recommends meals from user preferences using Gemini AI.",
+    "featured": false,
+    "stack": [
+      "Flutter",
+      "Dart",
+      "Cubit/Bloc",
+      "Firebase",
+      "Gemini AI",
+      "Hive"
+    ],
+    "github": "https://github.com/Osamariyad2003/meal_recommendation_ai",
+    "demo": null,
+    "overview": "Meal Recommendation AI is a Flutter app that suggests personalized meals based on a user's preferences and dietary needs, using Gemini AI to analyze inputs and generate recommendations, with offline support and secure local storage.",
+    "problem": "Generic meal-planning apps offer static filters, not real personalization — they don't reason about a user's stated preferences and dietary constraints together to suggest something new.",
+    "architecture": "Built on Clean Architecture with Cubit/Bloc for state management. Firebase handles authentication and real-time data sync; Hive provides offline local storage, with secure shared preferences for sensitive data. Gemini AI is called to analyze user preferences and produce meal recommendations, pulled together with dynamic meal data from an external API.",
+    "features": [
+      "AI-generated personalized meal recommendations via Gemini",
+      "Dietary customization and preference-based filtering",
+      "Save favorite meals for later",
+      "Offline functionality via Hive local storage",
+      "Secure authentication with encrypted local preference storage",
+      "Multi-platform: Android, iOS, web, Windows, macOS, Linux"
+    ],
+    "screenshots": [
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/home.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/ai_recmmondation.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/meal_detail.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/filtter.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/fav.png"
+    ],
+    "challenges": "Structuring prompts and response parsing so Gemini's meal suggestions stayed reliably structured (not free-text) enough to render in a real UI, while still working offline via cached/Hive-stored results when there's no connection.",
+    "learned": "Clean Architecture's separation of concerns made it straightforward to swap in an LLM (Gemini) as just another data source behind the same recommendation interface, without the AI integration leaking into the UI layer."
+  }
+]
