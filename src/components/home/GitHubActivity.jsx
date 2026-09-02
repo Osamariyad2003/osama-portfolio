@@ -8,12 +8,14 @@ function GitHubActivity() {
       <p className="eyebrow">GitHub Activity</p>
 
       <div className="github-activity__card">
-        <img
-          className="github-activity__chart"
-          src={`https://ghchart.rshah.org/2b4cf0/${GITHUB_USER}`}
-          alt={`${GITHUB_USER}'s GitHub contribution graph`}
-          loading="lazy"
-        />
+        <div className="github-activity__chart-scroll">
+          <img
+            className="github-activity__chart"
+            src={`https://ghchart.rshah.org/2b4cf0/${GITHUB_USER}`}
+            alt={`${GITHUB_USER}'s GitHub contribution graph`}
+            loading="lazy"
+          />
+        </div>
         <a
           className="mono github-activity__link"
           href={`https://github.com/${GITHUB_USER}`}

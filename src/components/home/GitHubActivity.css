@@ -3,12 +3,23 @@
   padding: 28px;
 }
 
+.github-activity__chart-scroll {
+  overflow-x: auto;
+}
+
 .github-activity__chart {
   display: block;
   width: 100%;
+  min-width: 640px;
   height: auto;
   filter: invert(1) hue-rotate(180deg);
   opacity: 0.9;
+}
+
+@media (max-width: 900px) {
+  .github-activity__card {
+    padding: 20px;
+  }
 }
 
 .github-activity__link {
