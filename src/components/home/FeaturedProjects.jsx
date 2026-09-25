@@ -11,12 +11,8 @@ function FeaturedProjects() {
       <p className="eyebrow">Featured Projects</p>
 
       <div className="featured-projects__grid">
-        {featured.map((project, i) => (
-          <ProjectCard
-            key={project.slug}
-            project={project}
-            index={String(i + 1).padStart(2, "0")}
-          />
+        {featured.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
 

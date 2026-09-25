@@ -67,6 +67,55 @@
     "learned": "RTL support done properly is a layout architecture decision made from day one, not a CSS override added at the end — and orchestrating several LLM-backed pipelines in production surfaces failure modes (partial parses, provider timeouts, inconsistent structured output) that never show up in a single-notebook demo."
   },
   {
+    "slug": "sakina",
+    "name": "Sakina — سكينة",
+    "tagline": "Arabic-first mental-health and wellbeing app for young Arabic-speaking users in Jordan.",
+    "featured": true,
+    "stack": [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "TanStack Query",
+      "i18next",
+      "Reanimated"
+    ],
+    "github": "https://github.com/Osamariyad2003/Sakina",
+    "demo": null,
+    "overview": "Sakina (سكينة, \"tranquility\") is a React Native mental-health and emotional-wellbeing app built for young Arabic-speaking users in Jordan. Arabic/RTL is the source layout, not a translation layer, and the app brings mood tracking, journaling, guided exercises, community support, therapist booking, and an AI companion together in one place.",
+    "problem": "Most wellbeing apps are designed in English and adapted for Arabic afterwards, which breaks layout and weakens the tone of sensitive content. Young users in Jordan need mental-health support that reads naturally in their language, respects privacy, and points to real help when it matters.",
+    "architecture": "An Expo (dev client) + TypeScript app organized by feature: each module in `src/features/` owns its screens, components, state, services, models, and validation. A shared `core/` layer handles the API client, auth, error mapping, and secure/cached storage (expo-secure-store, MMKV), while `ui/` provides design tokens, a ThemeProvider, and primitives. Server state goes through TanStack Query, forms use react-hook-form, navigation is split into Auth, Onboarding, and main-tab stacks, and i18next provides Arabic and English resources.",
+    "features": [
+      "Guided onboarding with goals, a baseline assessment, and explicit consent",
+      "Mood check-ins with history, overview, and insights",
+      "Private journaling with search and editing",
+      "Breathing/wellness exercises and stress-relief sessions with before/after check-ins",
+      "Sleep and hydration tracking with schedules and history",
+      "Community groups and threads for peer support",
+      "Therapist directory with appointment booking",
+      "AI therapy companion and a symptom checker",
+      "Safety and crisis-support screen, badges, and reminders"
+    ],
+    "screenshots": [
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/01-onboarding-welcome.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/17-home.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/24-safety-crisis-support.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/28-community.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/34-therapist-directory.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/39-appointment-confirmed.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/44-mood-checkin.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/54-mood-insights.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/58-journal-entry-filled.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/64-active-exercise.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/70-stress-active-session.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/85-sleep-chart.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/116-symptom-results.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/124-therapy-conversation.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/101-badges.png"
+    ],
+    "challenges": "Treating Arabic/RTL as the default layout meant every primitive, icon direction, and animation had to be designed for right-to-left first, while still switching cleanly to English. Keeping more than a dozen feature modules consistent under one design system and data layer also required strict feature boundaries.",
+    "learned": "For a sensitive domain like mental health, tone, language, and privacy are product features in their own right. A feature-sliced structure with shared core and UI layers kept a large app manageable as modules kept being added."
+  },
+  {
     "slug": "souq",
     "name": "Souq Connect",
     "tagline": "Odoo addon that models cash-on-delivery accounting for MENA retail, properly — as real ledger entries.",

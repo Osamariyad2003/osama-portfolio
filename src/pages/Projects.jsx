@@ -8,12 +8,8 @@ function Projects() {
       <p className="eyebrow">All Projects</p>
 
       <div className="projects-page__grid">
-        {PROJECTS.map((project, i) => (
-          <ProjectCard
-            key={project.slug}
-            project={project}
-            index={String(i + 1).padStart(2, "0")}
-          />
+        {PROJECTS.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
     </div>
