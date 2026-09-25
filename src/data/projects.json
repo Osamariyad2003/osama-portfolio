@@ -110,7 +110,12 @@
       "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/85-sleep-chart.png",
       "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/116-symptom-results.png",
       "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/124-therapy-conversation.png",
-      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/101-badges.png"
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/101-badges.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/04-onboarding-goals.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/62-wellness-home.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/77-hydration-home.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/52-mood-history.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Sakina/main/screenshots/97-workshops.png"
     ],
     "challenges": "Treating Arabic/RTL as the default layout meant every primitive, icon direction, and animation had to be designed for right-to-left first, while still switching cleanly to English. Keeping more than a dozen feature modules consistent under one design system and data layer also required strict feature boundaries.",
     "learned": "For a sensitive domain like mental health, tone, language, and privacy are product features in their own right. A feature-sliced structure with shared core and UI layers kept a large app manageable as modules kept being added."
