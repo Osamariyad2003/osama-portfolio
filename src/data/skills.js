@@ -12,8 +12,17 @@ const SKILLS = [
     items: ["GCP", "Docker", "PostgreSQL", "Redis"],
   },
   {
-    category: "AI / ML",
-    items: ["LLM Agents", "Gemini", "ADK", "Prompt Engineering"],
+    category: "Agentic Systems & MCP",
+    items: [
+      "LLM Agents",
+      "Multi-Agent Orchestration",
+      "MCP Servers",
+      "Tool Calling",
+      "RAG & Embeddings",
+      "Gemini",
+      "ADK",
+      "Prompt Engineering",
+    ],
   },
 ];
 
