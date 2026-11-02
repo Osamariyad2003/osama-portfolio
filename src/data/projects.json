@@ -34,20 +34,34 @@
     ],
     "screenshots": [
       "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/11-landing-hero.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/12-landing-features-lifecycle.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/01-home-deals.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/14-home-welcome-banner.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/15-seller-home.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/02-explore-marketplace.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/16-marketplace-services.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/03-shop-search.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/04-product-detail-top.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/05-product-offers-similar.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/06-wallet.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/07-account.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/08-new-deal-form.jpg",
       "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/25-new-deal-form-milestones.png",
       "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/26-deal-funded-escrow-summary.png",
       "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/27-agreed-terms-checklist-fingerprint.png",
       "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/28-deliverable-ai-verifying.png",
       "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/29-deal-history-paypal-audit.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/09-admin-login.jpg",
       "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/10-admin-dashboard.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/17-admin-deal-detail-top.jpg",
       "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/18-admin-deal-checklist-verdict.jpg",
       "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/19-admin-verification-report.jpg",
       "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/20-admin-per-criterion-reasoning.jpg",
       "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/21-admin-dispute-resolution.jpg",
-      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/01-home-deals.jpg",
-      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/02-explore-marketplace.jpg",
-      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/06-wallet.jpg",
-      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/22-mobile-marketplace.jpg"
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/22-mobile-marketplace.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/23-mobile-shop.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/24-mobile-home.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/13-login-page.jpg"
     ],
     "challenges": "Letting an LLM near money required designing defense-in-depth where no single model failure could cause a financial loss. If a malicious deliverable contains prompt injections attempting to redirect payouts or spoof positive evaluations, the spend mandate and server-side reconciliation ensure the payout recipient and amount cannot change, and fabricated criteria IDs are discarded. In addition, handling asynchronous PayPal webhooks required deterministic idempotency keys and row-level locks in PostgreSQL to eliminate race conditions and prevent double-spending on duplicate delivery.",
     "learned": "AI agents should be treated as advisory specialists rather than autonomous executors when critical assets or money are at stake. Decoupling the reasoning layer (LLM inspection) from the decision and execution layer (pure deterministic Python policy + database transaction) provides mathematically verifiable security while retaining the speed and convenience of AI automation."
@@ -86,7 +100,11 @@
       "Built-in FastAPI server with Server-Sent Events (SSE) streaming and a zero-dependency RTL web interface",
       "Comprehensive evaluation suite with 49 legal test queries, measuring hit rate, MRR, context token efficiency, and hyperparameter sweeps"
     ],
-    "screenshots": [],
+    "screenshots": [
+      "/screenshots/mizan/01-legal-search-interface.png",
+      "/screenshots/mizan/02-statute-query-evidence.png",
+      "/screenshots/mizan/03-mobile-legal-query.png"
+    ],
     "challenges": "Extracting clean Arabic text from legacy legal database PDFs was a major obstacle: many exports dumped all article headings at the top of the page and bodies below, or reversed word order per line with raw PDF glyph codes. Reconstructing layout-mode extraction to tie headings back to their exact provisions, while repairing glued words and inverted characters, required writing custom regex heuristics and Unicode repair passes. Additionally, balancing dense embeddings with BM25 required Reciprocal Rank Fusion rather than raw score addition, since cosine distance and BM25 scores scale completely differently across multilingual vocabulary.",
     "learned": "Chunking strategy and retrieval precision have a far higher impact on RAG quality than the generator model itself. Moving from naïve 1,200-token page windows to article-level chunking and local INT8 cross-encoder reranking boosted first-rank accuracy from 43% to 80% on the exact same legal test set — proving that domain-specific indexing and evaluation harnesses are what turn a generic RAG demo into a trustworthy production system."
   },
@@ -113,7 +131,34 @@
       "React dashboard for reviewing findings across repos",
       "Configurable rule severity per project"
     ],
-    "screenshots": [],
+    "screenshots": [
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/01_landing_hero.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/02_landing_interactive_demo.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/03_dashboard_overview.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/04_repositories_list.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/05_issues_explorer.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/06_reviews_history.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/07_autonomous_agents.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/08_architecture_constellation.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/09_commits_inbox.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/10_feedback_insights.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/11_time_travel.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/12_system_status.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/13_user_profile.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/14_demo_sequence_diagram.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/15_demo_ai_chat.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/16_landing_comparison_matrix.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/17_component_showcase.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/18_repo_search.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/19_repo_detail_dashboard.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/20_repo_settings.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/21_events_telemetry_stream.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/22_worker_jobs_queue.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/23_enriched_review_hub.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/24_review_detail_checklist.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/25_issue_remediation_agent.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/codebuster/main/docs/screenshots/26_issue_xss_ast_view.png"
+    ],
     "challenges": "Keeping review latency low under bursty webhook traffic required tuning Celery concurrency and adding backpressure so a large PR didn't starve smaller ones in the queue.",
     "learned": "How to design an async pipeline where a slow LLM call doesn't block the fast path, and how to make queue depth and worker health visible instead of invisible."
   },
@@ -147,12 +192,19 @@
     ],
     "screenshots": [
       "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/01-login.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/02-login-error-state.png",
       "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/03-dashboard.png",
       "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/04-jobs-search-agents.png",
       "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/05-job-detail.png",
       "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/06-resume-manager.png",
       "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/07-applications-tracker.png",
-      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/09-copilot-chat.png"
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/08-saved-jobs.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/09-copilot-chat.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/10-billing.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/screenshots/11-settings.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/docs/screenshots/03-CV.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/docs/screenshots/04-Ats.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/shughaily/main/docs/screenshots/08-coverletter.png"
     ],
     "challenges": "Keeping RTL and LTR layouts, auth, and configuration consistent across three separate services (React, Express, Flask) while switching languages live was far more involved than any single AI pipeline. Coordinating multiple async AI agents through BullMQ, with graceful fallback between LLM providers (OpenRouter primary, Groq fallback), also took several iterations to make reliable under load.",
     "learned": "RTL support done properly is a layout architecture decision made from day one, not a CSS override added at the end — and orchestrating several LLM-backed pipelines in production surfaces failure modes (partial parses, provider timeouts, inconsistent structured output) that never show up in a single-notebook demo."
@@ -294,11 +346,17 @@
     ],
     "screenshots": [
       "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/01_branch_config.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/02_settings_surcharge.png",
       "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/03_quotations_list.png",
       "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/04_order_detail.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/05_delivery.png",
       "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/06_invoice.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/07_einvoice_qr.png",
       "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/08_cod_collections_list.png",
-      "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/10_settlements_list.png"
+      "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/09_collection_detail.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/10_settlements_list.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/11_settlement_detail.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/Souq/main/screenshots/12_user_access_rights.png"
     ],
     "challenges": "Enforcing real double-entry accounting integrity when cash flow lags invoice validation by days, without letting a driver settle the same collection twice — that meant settlement confirmation gates, per-driver record rules, and constraints that make illegal state transitions structurally impossible rather than just discouraged in the UI.",
     "learned": "Modeling money movement as real ledger entries — not status flags — is what makes an accounting feature trustworthy; and Odoo's ORM plus QWeb made it possible to ship ZATCA-compliant bilingual invoicing without hand-rolling a templating layer."
@@ -373,7 +431,10 @@
       "https://raw.githubusercontent.com/Osamariyad2003/travler/main/screenshots/03-place-details-popup.png",
       "https://raw.githubusercontent.com/Osamariyad2003/travler/main/screenshots/04-walking-routes-panel.png",
       "https://raw.githubusercontent.com/Osamariyad2003/travler/main/screenshots/05-budget-trip-templates.png",
-      "https://raw.githubusercontent.com/Osamariyad2003/travler/main/screenshots/08-travel-orbit-desktop.png"
+      "https://raw.githubusercontent.com/Osamariyad2003/travler/main/screenshots/06-submit-new-place.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/travler/main/screenshots/07-admin-submissions-review.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/travler/main/screenshots/08-travel-orbit-desktop.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/travler/main/screenshots/08-travel-orbit-mobile.png"
     ],
     "challenges": "Building useful routing and city-data features entirely on free, community-maintained data sources (OSM/OSRM) instead of a paid maps API meant handling gaps and inconsistencies in that data gracefully, rather than trusting a clean commercial API response.",
     "learned": "You can ship a genuinely useful, map-heavy product on free infrastructure if you design around the data's rough edges from the start — and that privacy-by-default is a real feature, not just a compliance checkbox."
@@ -441,9 +502,13 @@
     "screenshots": [
       "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/01-login.png",
       "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/02-dashboard.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/03-courses.png",
       "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/04-notes-editor.png",
       "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/05-knowledge-graph.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/06-assignments.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/07-exam-detail.png",
       "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/08-flashcards-review.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/09-calendar.png",
       "https://raw.githubusercontent.com/Osamariyad2003/SLW/main/screenshots/10-command-palette.png"
     ],
     "challenges": "Implementing a spaced-repetition scheduler without leaning on an existing library meant getting the FSRS-style scheduling math right myself, and the backlink/graph system needed careful indexing to stay fast as note counts grew.",
@@ -478,10 +543,19 @@
       "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/movies.jpg",
       "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/showtimes.jpg",
       "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/seat-selection.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/booking-confirmed.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/payment.jpg",
       "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/dashboard.jpg",
       "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/loyalty.jpg",
-      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/booking-confirmed.jpg",
-      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/payment.jpg"
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/locations.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/foods-bar.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/events.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/sports.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/contact.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/auth-selection.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/login.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/register.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/prime_cinema/main/docs/screenshots/404.jpg"
     ],
     "challenges": "Modeling the cinema → screen → seat → showtime hierarchy so that seat maps stayed accurate across many concurrent showtimes, while keeping the schema flexible enough to auto-migrate (`alter: true`) as new screen types and features were added.",
     "learned": "Splitting the booking frontend and the admin/API backend into separate deployable pieces early made it much easier to iterate on the customer UI without ever risking the data model the admin panel depends on."
@@ -515,7 +589,11 @@
       "https://raw.githubusercontent.com/Osamariyad2003/ulmo_ecmmerce/main/screenshots/catalog.png",
       "https://raw.githubusercontent.com/Osamariyad2003/ulmo_ecmmerce/main/screenshots/product_grid.png",
       "https://raw.githubusercontent.com/Osamariyad2003/ulmo_ecmmerce/main/screenshots/product_details.png",
-      "https://raw.githubusercontent.com/Osamariyad2003/ulmo_ecmmerce/main/screenshots/admin_panel.png"
+      "https://raw.githubusercontent.com/Osamariyad2003/ulmo_ecmmerce/main/screenshots/admin_panel.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/ulmo_ecmmerce/main/screenshots/admin_panel_2.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/ulmo_ecmmerce/main/screenshots/order.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/ulmo_ecmmerce/main/screenshots/payment_method.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/ulmo_ecmmerce/main/screenshots/address.png"
     ],
     "challenges": "Getting one Flutter codebase to behave correctly across six target platforms (especially reconciling mobile-first UI patterns with a usable web/desktop experience) took more platform-conditional handling than a mobile-only app would have needed.",
     "learned": "Firestore's document model maps naturally onto a product catalog, but designing the schema to serve both the customer app and a separate admin panel cleanly meant thinking about access patterns from both sides up front."
@@ -550,8 +628,18 @@
       "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/home.png",
       "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/ai_recmmondation.jpg",
       "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/meal_detail.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/meal_detail2.png",
       "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/filtter.png",
-      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/fav.png"
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/fav.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/see_all.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/side_bar.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/profile.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/onboarding.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/sign_in.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/sign_up.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/otp.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/confirm.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/meal_recommendation_ai/master/screenshots/splach.png"
     ],
     "challenges": "Structuring prompts and response parsing so Gemini's meal suggestions stayed reliably structured (not free-text) enough to render in a real UI, while still working offline via cached/Hive-stored results when there's no connection.",
     "learned": "Clean Architecture's separation of concerns made it straightforward to swap in an LLM (Gemini) as just another data source behind the same recommendation interface, without the AI integration leaking into the UI layer."
