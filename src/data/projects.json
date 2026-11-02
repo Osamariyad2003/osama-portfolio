@@ -1,5 +1,58 @@
 [
   {
+    "slug": "waseet",
+    "name": "Waseet — وسيط",
+    "tagline": "AI-mediated escrow on PayPal — deterministic safety gates, explainable AI verification, and spend mandates.",
+    "featured": true,
+    "stack": [
+      "FastAPI",
+      "Python 3.12",
+      "Next.js 14",
+      "TypeScript",
+      "PayPal SDK",
+      "PostgreSQL",
+      "Claude Sonnet / Gemini",
+      "Docker",
+      "Tailwind CSS"
+    ],
+    "github": "https://github.com/Osamariyad2003/waseet",
+    "demo": null,
+    "overview": "Waseet (وسيط, \"mediator\") is an AI-mediated escrow platform built on PayPal rails for the PayPal AI Hackathon. When a buyer funds a deal, the platform captures and holds the funds in escrow. An LLM verifier inspects the seller's deliverable against testable acceptance criteria agreed upon by both parties, and a deterministic Python policy — never the LLM itself — decides whether that judgment is permitted to disburse funds. If confidence clears the threshold with zero failed criteria and no contest, funds auto-release to the seller; any anomaly, low confidence score, or buyer objection routes into dispute where funds remain securely held for human resolution.",
+    "problem": "Escrow is fundamentally a trust product burdened by a human arbiter bottleneck: verifying digital deliverables takes time, creating delays and high operational costs. However, giving autonomous AI agents direct custody or disbursement power over money is reckless and vulnerable to prompt injection, hallucinations, and non-deterministic behavior. The core engineering challenge is enabling an agent to inspect work and recommend settlement, while guaranteeing through deterministic guardrails and immutable spend mandates that an agent can never misdirect or overspend funds.",
+    "architecture": "A clean, inward-pointing architecture built with FastAPI and PostgreSQL on the backend, paired with two independent Next.js 14 / TypeScript frontends (an Escrow client for buyers and sellers, and an Admin operations portal for dispute reviewers) supporting full English and Arabic (RTL). The backend domain layer cleanly isolates the state machine, decision policy, and spend mandates from HTTP and DB concerns. AI evaluation runs via pluggable Anthropic Claude or Google Gemini providers with strictly read-only tools (read_deal, read_criteria, read_deliverable). Outbound payments are governed by immutable spend mandates minted from deal parameters, preventing redirection. Deliverables are fetched via an SSRF-safe client restricting IP ranges and redirect hops, while PayPal webhooks enforce idempotent event handling backed by unique DB indexes and an append-only audit trail.",
+    "features": [
+      "AI-drafted acceptance criteria generated from natural language deal descriptions, cryptographically locked with a SHA-256 checklist fingerprint",
+      "Strict 'Decide, Don't Disburse' guardrail where AI agents possess only read-only evaluation tools and zero settlement authority",
+      "Deterministic confidence gate requiring a verified pass at or above 0.8 confidence with no failed criteria to trigger auto-release",
+      "Spend mandate validation pinning maximum payout to captured value and recipient strictly to the authenticated seller",
+      "Prompt injection resistance with server-side reconciliation discarding hallucinations and downgrading contradictory passes",
+      "SSRF-protected deliverable fetching that blocks private/loopback/cloud-metadata IPs, enforces download caps, and limits redirect hops",
+      "Two independent Next.js frontends (Buyer/Seller Escrow client and Reviewer Admin portal) with bilingual English and Arabic RTL support",
+      "Append-only PostgreSQL audit trail recording every state transition, reasoning trace, and PayPal capture/payout reference",
+      "Deterministic PayPal idempotency keys and unique event indexes guaranteeing webhook replay protection",
+      "Human dispute resolution workflows with complete AI reasoning inspection for refunds, releases, or split settlements"
+    ],
+    "screenshots": [
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/11-landing-hero.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/25-new-deal-form-milestones.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/26-deal-funded-escrow-summary.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/27-agreed-terms-checklist-fingerprint.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/28-deliverable-ai-verifying.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/29-deal-history-paypal-audit.png",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/10-admin-dashboard.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/18-admin-deal-checklist-verdict.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/19-admin-verification-report.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/20-admin-per-criterion-reasoning.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/21-admin-dispute-resolution.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/01-home-deals.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/02-explore-marketplace.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/06-wallet.jpg",
+      "https://raw.githubusercontent.com/Osamariyad2003/waseet/main/screenshots/22-mobile-marketplace.jpg"
+    ],
+    "challenges": "Letting an LLM near money required designing defense-in-depth where no single model failure could cause a financial loss. If a malicious deliverable contains prompt injections attempting to redirect payouts or spoof positive evaluations, the spend mandate and server-side reconciliation ensure the payout recipient and amount cannot change, and fabricated criteria IDs are discarded. In addition, handling asynchronous PayPal webhooks required deterministic idempotency keys and row-level locks in PostgreSQL to eliminate race conditions and prevent double-spending on duplicate delivery.",
+    "learned": "AI agents should be treated as advisory specialists rather than autonomous executors when critical assets or money are at stake. Decoupling the reasoning layer (LLM inspection) from the decision and execution layer (pure deterministic Python policy + database transaction) provides mathematically verifiable security while retaining the speed and convenience of AI automation."
+  },
+  {
     "slug": "codebuster",
     "name": "CodeBuster",
     "tagline": "AI-driven PR-review platform that surfaces issues before humans do.",
