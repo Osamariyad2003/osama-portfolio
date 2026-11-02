@@ -53,6 +53,44 @@
     "learned": "AI agents should be treated as advisory specialists rather than autonomous executors when critical assets or money are at stake. Decoupling the reasoning layer (LLM inspection) from the decision and execution layer (pure deterministic Python policy + database transaction) provides mathematically verifiable security while retaining the speed and convenience of AI automation."
   },
   {
+    "slug": "mizan",
+    "name": "Mizan — ميزان",
+    "tagline": "Arabic-first legal RAG system — hybrid dense + BM25 retrieval, article-level chunking, and cited LLM generation.",
+    "featured": true,
+    "stack": [
+      "Python 3.12",
+      "PyTorch",
+      "BAAI/bge-m3",
+      "FastAPI",
+      "BM25",
+      "Cross-Encoder",
+      "Gemini 3.8 / Claude",
+      "RRF & MMR"
+    ],
+    "github": "https://github.com/Osamariyad2003/Mizan",
+    "demo": null,
+    "overview": "Mizan (ميزان, \"balance/scale\") is an Arabic-first legal Retrieval-Augmented Generation (RAG) system engineered for high-precision retrieval over legal legislation and statutes. Built with a local-first philosophy, indexing, text extraction, sparse and dense vector search, and cross-encoder reranking run 100% on-device with zero external API calls or network dependencies — hosted LLMs (Google Gemini 3.8 Flash or Anthropic Claude Opus) are invoked solely for cited answer generation. It was benchmarked against official Jordanian legal statutes (including the Constitution, Civil Code, and Penal Code), delivering 94% Recall@5 and an MRR of 0.86 across 49 legal test queries.",
+    "problem": "Standard RAG frameworks perform poorly on Arabic legal corpora: generic token-window chunking breaks up legal articles and dissociates article numbers from their provisions; Arabic OCR and legal-database PDF exports suffer from reversed word orders, glued-together glyphs, and font encoding bugs; and pure dense embeddings struggle with specific article identifiers, numbers, and legal phrasing. Legal professionals cannot tolerate hallucinated answers or uncited claims — citations must resolve to exact physical articles, pages, and character offsets.",
+    "architecture": "A hybrid multi-stage retrieval pipeline: incoming legislation (PDF, Word, Markdown, plain text) undergoes Arabic-aware layout extraction and PDF text repair before being parsed by an article-aware chunker that detects legal headings and binds provisions into discrete, labeled units (e.g., 'Penal Code 1960 — Article 170 — Bribery'). Chunks are indexed into a local dense vector store using BAAI/bge-m3 embeddings and a customized BM25 index with Arabic normalization (hamza folding, diacritic removal, and prefix stripping that preserves legal roots and negation tokens like 'لا'). Queries retrieve candidates via dense cosine similarity and lexical BM25, fused via Reciprocal Rank Fusion (RRF), deduplicated using Maximal Marginal Relevance (MMR), and rescored with an INT8-quantized cross-encoder (bge-reranker-v2-m3). The top passages are injected into Gemini 3.8 Flash or Claude with prompt caching, yielding streaming answers with structured, offset-verified [n] citations. A FastAPI server exposes the pipeline with Server-Sent Events (SSE) and an offline-ready RTL web tester.",
+    "features": [
+      "Article-level legal chunking with sequence-aware heading detection that isolates articles without splitting cross-references",
+      "Automated Arabic PDF defect repair resolving glued words, reversed word-order layout exports, and font glyph anomalies",
+      "Custom legal Arabic text normalizer (folds hamza/madda, strips diacritics/tatweel, converts digits, and preserves legal root words and negation particles)",
+      "Hybrid retrieval combining multilingual dense embeddings (bge-m3) and lexical BM25 fused via Reciprocal Rank Fusion (RRF)",
+      "Maximal Marginal Relevance (MMR) deduplication to eliminate near-duplicate chunk hits across overlapping boundaries",
+      "Local INT8-quantized cross-encoder reranker (bge-reranker-v2-m3) running 5x faster on CPU with zero accuracy drop",
+      "Offset-tracked structural citations linking answers to exact character positions, source filenames, and physical page numbers",
+      "Strict refusal guardrails instructing the LLM to decline answering rather than hallucinate when context is insufficient",
+      "Pluggable model support for Google Gemini (Flash 3.8 / Vertex AI) and Anthropic Claude with prefix prompt caching",
+      "Local-first design: zero network or API keys required for indexing, embedding, searching, and reranking",
+      "Built-in FastAPI server with Server-Sent Events (SSE) streaming and a zero-dependency RTL web interface",
+      "Comprehensive evaluation suite with 49 legal test queries, measuring hit rate, MRR, context token efficiency, and hyperparameter sweeps"
+    ],
+    "screenshots": [],
+    "challenges": "Extracting clean Arabic text from legacy legal database PDFs was a major obstacle: many exports dumped all article headings at the top of the page and bodies below, or reversed word order per line with raw PDF glyph codes. Reconstructing layout-mode extraction to tie headings back to their exact provisions, while repairing glued words and inverted characters, required writing custom regex heuristics and Unicode repair passes. Additionally, balancing dense embeddings with BM25 required Reciprocal Rank Fusion rather than raw score addition, since cosine distance and BM25 scores scale completely differently across multilingual vocabulary.",
+    "learned": "Chunking strategy and retrieval precision have a far higher impact on RAG quality than the generator model itself. Moving from naïve 1,200-token page windows to article-level chunking and local INT8 cross-encoder reranking boosted first-rank accuracy from 43% to 80% on the exact same legal test set — proving that domain-specific indexing and evaluation harnesses are what turn a generic RAG demo into a trustworthy production system."
+  },
+  {
     "slug": "codebuster",
     "name": "CodeBuster",
     "tagline": "AI-driven PR-review platform that surfaces issues before humans do.",
